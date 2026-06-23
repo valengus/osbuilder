@@ -1,0 +1,7 @@
+---
+- name: Ensure kernel module is present
+  community.general.modprobe:
+    name: "{{ item }}"
+    persistent: present
+    state: present
+  with_items: "{{ bootstarap_kernel_modules }}"

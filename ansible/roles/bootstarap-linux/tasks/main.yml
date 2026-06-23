@@ -1,0 +1,23 @@
+---
+- name: Packages
+  ansible.builtin.include_tasks: packages.yml
+
+- name: Disable SELinux
+  ansible.builtin.include_tasks: disable_selinux.yml
+  when: bootstarap_disable_selinux
+
+- name: Kernel
+  ansible.builtin.include_tasks: kernel.yml
+
+- name: Firewalld
+  ansible.builtin.include_tasks: firewalld.yml
+
+- name: Install docker
+  ansible.builtin.include_tasks: docker.yml
+  when: bootstrap_install_docker
+
+- name: Cloud-init
+  ansible.builtin.include_tasks: cloud-init.yml
+
+- name: Clean up
+  ansible.builtin.include_tasks: cleanup.yml

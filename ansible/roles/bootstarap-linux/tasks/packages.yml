@@ -1,0 +1,14 @@
+---
+- name: Upgrade all packages
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+
+- name: Install epel-release
+  ansible.builtin.yum:
+    name: "oracle-epel-release-el{{ ansible_distribution_major_version }}"
+
+- name: Install defaults packages
+  ansible.builtin.package:
+    name: "{{ bootstrap_defaults_packages }}"
+    state: present

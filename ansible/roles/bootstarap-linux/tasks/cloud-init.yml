@@ -1,0 +1,17 @@
+---
+- name: Update NetworkManager
+  ansible.builtin.dnf:
+    name: NetworkManager
+    state: latest
+
+- name: Install cloud-init packages
+  ansible.builtin.dnf:
+    name: ["cloud-init", "cloud-utils-growpart", "gdisk"]
+
+- name: Template cloud.cfg
+  ansible.builtin.template:
+    src: cloud.cfg
+    dest: /etc/cloud/cloud.cfg
+
+- name: Cloud-init clean 
+  shell: cloud-init clean

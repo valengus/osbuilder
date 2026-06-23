@@ -1,0 +1,16 @@
+---
+- name: Clear yum cache
+  command: dnf -y clean all
+
+- name: Delete nmconnection uuid
+  shell: sed -i '/^\(uuid\)=/d' /etc/NetworkManager/system-connections/*.nmconnection
+
+- name: Truncate files
+  command: "truncate -s 0 {{ item }}"
+  with_items:
+    - /etc/machine-id
+    - /var/log/audit/audit.log
+    - /var/log/cron
+    - /var/log/maillog
+    - /var/log/messages
+    - /var/log/secure

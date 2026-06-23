@@ -1,0 +1,17 @@
+---
+bootstarap_kernel_modules: []
+bootstarap_disable_selinux: false
+bootstrap_install_docker: false
+
+bootstrap_defaults_packages:
+- htop
+- nano
+- sudo
+- tmux
+- curl
+- telnet
+- unzip
+- lvm2
+- openssh
+- firewalld
+- bash-completion

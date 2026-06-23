@@ -1,0 +1,41 @@
+---
+- name: Uninstall podman & moby-engine
+  ansible.builtin.yum:
+    name:
+      - podman
+      - moby-engine
+      - docker
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-logrotate
+      - docker-engine
+      - podman
+      - runc
+    state: absent
+
+- name: Add docker repo
+  ansible.builtin.yum_repository:
+    name: docker-ce-stable
+    description: Docker CE Stable - $basearch
+    file: docker-ce
+    baseurl: https://download.docker.com/linux/rhel/$releasever/$basearch/stable
+    enabled: true
+    gpgkey: https://download.docker.com/linux/rhel/gpg
+    gpgcheck: true
+
+- name: Install docker-ce
+  ansible.builtin.yum:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: present
+
+- name: Make sure docker service is running
+  ansible.builtin.systemd_service:
+    name: docker.service
+    state: started
+    enabled: true

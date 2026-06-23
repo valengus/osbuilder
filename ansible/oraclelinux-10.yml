@@ -1,0 +1,10 @@
+---
+- name: Install
+  hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+
+  - ansible.builtin.include_role:
+      name: bootstarap-linux
