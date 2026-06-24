@@ -1,0 +1,12 @@
+---
+- name: Packages
+  ansible.builtin.include_tasks: packages.yml
+
+- name: Firewalld
+  ansible.builtin.include_tasks: firewalld.yml
+
+- name: Cloud-init
+  ansible.builtin.include_tasks: cloud-init.yml
+
+- name: Clean up
+  ansible.builtin.include_tasks: cleanup.yml

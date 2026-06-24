@@ -1,0 +1,39 @@
+---
+- name: Remove random-seed
+  file:
+    path: /var/lib/systemd/random-seed
+    state: absent
+
+- name: Clear yum cache
+  command: dnf -y clean all
+
+- name: Find NetworkManager system connection files
+  ansible.builtin.find:
+    paths: /etc/NetworkManager/system-connections
+    patterns: "*.nmconnection"
+  register: networkmanager_system_connection_files
+
+- name: Delete found NetworkManager system connection files
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ networkmanager_system_connection_files.files }}"
+  loop_control:
+    label: "{{ item.path }}"
+
+- name: Truncate files
+  command: "truncate -s 0 {{ item }}"
+  with_items:
+    - /etc/machine-id
+    - /var/log/audit/audit.log
+    - /var/log/cron
+    - /var/log/maillog
+    - /var/log/messages
+    - /var/log/secure
+    - /etc/resolv.conf
+
+- name: Find SSH host keys
+  find:
+    paths: /etc/ssh
+    patterns: 'ssh_host_*'
+  register: host_keys

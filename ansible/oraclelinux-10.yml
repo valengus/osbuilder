@@ -7,4 +7,4 @@
   tasks:
 
   - ansible.builtin.include_role:
-      name: bootstarap-linux
+      name: oraclelinux-template

@@ -15,6 +15,12 @@ Vagrant.configure("2") do |config|
       virtualbox.memory = 4 * 1024
       virtualbox.gui    = true
     end
+    config.vm.provider :libvirt do |libvirt|
+      libvirt.cpus                 = 2
+      libvirt.memory               = 4 * 1024
+      libvirt.machine_virtual_size = 20
+      libvirt.qemu_use_session     = false
+    end
     config.vm.synced_folder ".", "/vagrant", disabled: true
     # config.vm.provision "ansible" do |ansible|
     #   ansible.playbook = "ansible/oraclelinux-10.yml"  

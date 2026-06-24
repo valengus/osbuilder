@@ -1,0 +1,11 @@
+---
+oraclelinux_template_default_packages:
+- nano
+- sudo
+- tmux
+- curl
+- telnet
+- unzip
+- lvm2
+- openssh
+- bash-completion

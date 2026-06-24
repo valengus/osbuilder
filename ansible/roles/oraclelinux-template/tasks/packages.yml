@@ -10,5 +10,5 @@
 
 - name: Install defaults packages
   ansible.builtin.package:
-    name: "{{ bootstrap_defaults_packages }}"
+    name: "{{ oraclelinux_template_default_packages }}"
     state: present
